@@ -1,11 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 const createPgString = () => {
-  const user = process.env.PG_USER || "postgres";
-  const password = process.env.PG_PASSWORD || "postgres";
-  const host = process.env.PG_URL || "localhost:5432";
-  const database = process.env.PG_DATABASE || "homer";
-  return `postgresql://${user}:${password}@${host}/${database}`;
+  const pgConfig = {
+    url: process.env.PG_URL ?? "localhost:5432",
+    database: process.env.PG_DB ?? "homer",
+    username: process.env.PG_USERNAME ?? "postgres",
+    password: process.env.PG_PASSWORD ?? "postgres",
+  };
+  console.log("pgConfig", pgConfig);
+  return `postgresql://${pgConfig.username}:${pgConfig.password}@${pgConfig.url}/${pgConfig.database}`;
 };
 
 export default defineNuxtConfig({
