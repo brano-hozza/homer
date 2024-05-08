@@ -14,5 +14,8 @@ export const useAuthStore = defineStore({
     setUser(user: User) {
       this.user = user;
     },
+    removeUser() {
+      this.user = null;
+    },
   },
 });

@@ -1,7 +1,10 @@
 <template>
-  <div class="w-full bg-secondary p-2 flex justify-between">
-    <h1 class="text-xl text-primary">Homer</h1>
-    <span v-if="username">Welcome, {{ username }}!</span>
+  <div class="w-full bg-secondary p-2 flex justify-between items-center h-16">
+    <h1 class="text-xl text-primary ml-2">Homer</h1>
+    <span v-if="username" class="flex gap-2 items-center">
+      Welcome, {{ username }}!
+      <Button variant="outline" @click="logout">Log out</Button>
+    </span>
   </div>
   <Breadcrumb v-if="firstItem" class="p-2 border-b">
     <BreadcrumbList>
@@ -111,6 +114,14 @@ const lastItem = computed(() => items.value[items.value.length - 1]);
 const authStore = useAuthStore();
 
 const username = computed(() => authStore.user?.username);
+
+const token = useCookie("token");
+const router = useRouter();
+const logout = () => {
+  authStore.removeUser();
+  token.value = "";
+  router.push("/");
+};
 </script>
 
 <style></style>

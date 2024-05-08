@@ -9,8 +9,9 @@
 
 <script lang="ts" setup>
 const authStore = useAuthStore();
+const route = useRoute();
 onMounted(async () => {
-  if (authStore.user === null) {
+  if (authStore.user === null && route.path !== "/") {
     const user = await $fetch("/api/user");
     authStore.setUser(user);
   }

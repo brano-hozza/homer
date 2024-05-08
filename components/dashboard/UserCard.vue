@@ -14,6 +14,10 @@
         <span> {{ user.email }} </span>
       </div>
     </CardContent>
+    <CardContent v-else>
+      <Skeleton class="w-full h-5 mb-2" />
+      <Skeleton class="w-full h-5" />
+    </CardContent>
   </Card>
 </template>
 
