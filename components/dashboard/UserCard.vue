@@ -1,5 +1,5 @@
 <template>
-  <Card class="max-h-60">
+  <Card class="md:max-h-60 flex flex-col justify-between">
     <CardHeader>
       <CardTitle> User info </CardTitle>
       <CardDescription> Info about currently signed in user </CardDescription>
@@ -18,6 +18,15 @@
       <Skeleton class="w-full h-5 mb-2" />
       <Skeleton class="w-full h-5" />
     </CardContent>
+    <CardFooter>
+      <Button
+        variant="outline"
+        class="w-full"
+        @click="$router.push('/home/user')"
+      >
+        More info
+      </Button>
+    </CardFooter>
   </Card>
 </template>
 

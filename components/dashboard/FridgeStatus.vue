@@ -1,5 +1,5 @@
 <template>
-  <Card class="max-h-60">
+  <Card class="md:max-h-60 flex flex-col justify-between">
     <CardHeader>
       <CardTitle> Fridge status </CardTitle>
       <CardDescription> Inventory of our fridge </CardDescription>
@@ -11,7 +11,11 @@
       </ul>
     </CardContent>
     <CardFooter>
-      <Button variant="outline" class="w-full" @click="$router.push('/fridge')">
+      <Button
+        variant="outline"
+        class="w-full"
+        @click="$router.push('/home/fridge')"
+      >
         Into the fridge
       </Button>
     </CardFooter>

@@ -2,16 +2,14 @@
   <div class="w-full bg-secondary p-2 flex justify-between items-center h-16">
     <h1 class="text-xl text-primary ml-2">Homer</h1>
     <span v-if="username" class="flex gap-2 items-center">
-      Welcome, {{ username }}!
+      <p class="hidden md:block">
+        Welcome, <b>{{ username }}!</b>
+      </p>
       <Button variant="outline" @click="logout">Log out</Button>
     </span>
   </div>
-  <Breadcrumb v-if="firstItem" class="p-2 border-b">
+  <Breadcrumb v-if="firstItem" class="py-2 px-4 border-b">
     <BreadcrumbList>
-      <BreadcrumbItem>
-        <BreadcrumbLink href="/">App</BreadcrumbLink>
-      </BreadcrumbItem>
-      <BreadcrumbSeparator />
       <template v-if="items.length > itemsToDisplay">
         <BreadcrumbItem>
           <DropdownMenu v-if="isDesktop" v-model:open="isOpen">
@@ -91,8 +89,10 @@ const isDesktop = useMediaQuery("(min-width: 768px)");
 const isOpen = ref(false);
 
 const PAGE_NAMES: Record<string, string> = {
-  "": "App",
   home: "Home",
+  fridge: "Fridge",
+  account: "Account",
+  user: "User",
 };
 
 const items = computed(() => {

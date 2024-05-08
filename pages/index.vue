@@ -12,7 +12,7 @@
               <FormControl>
                 <Input
                   type="text"
-                  placeholder="johnD"
+                  placeholder="Your username..."
                   v-bind="componentField"
                 />
               </FormControl>
@@ -25,7 +25,7 @@
               <FormControl>
                 <Input
                   type="password"
-                  placeholder="password"
+                  placeholder="Password..."
                   v-bind="componentField"
                 />
               </FormControl>

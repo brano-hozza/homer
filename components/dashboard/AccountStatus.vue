@@ -1,5 +1,5 @@
 <template>
-  <Card class="max-h-60">
+  <Card class="md:max-h-60 flex flex-col justify-between">
     <CardHeader>
       <CardTitle class="flex justify-between">
         Account status
@@ -22,6 +22,15 @@
     <CardContent v-else>
       <span class="text-red-500">{{ error }}</span>
     </CardContent>
+    <CardFooter>
+      <Button
+        variant="outline"
+        class="w-full"
+        @click="$router.push('/home/account')"
+      >
+        Account details
+      </Button>
+    </CardFooter>
   </Card>
 </template>
 
