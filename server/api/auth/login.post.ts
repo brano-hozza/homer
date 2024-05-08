@@ -1,5 +1,6 @@
 import * as z from "zod";
 import { authService } from "~/server/services/auth-service";
+
 const schema = z.object({
   username: z.string().min(1),
   password: z.string().min(1),
