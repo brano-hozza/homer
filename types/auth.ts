@@ -1,12 +1,12 @@
 export interface DbUser {
-  id: number;
+  id: string;
   name: string;
   email: string;
   password: string;
 }
 
 export interface DbUserSession {
-  id: number;
+  id: string;
   user_id: number;
   token: string;
   refresh_token: string;
@@ -14,9 +14,10 @@ export interface DbUserSession {
 }
 
 export interface User {
-  id: number;
+  id: string;
   username: string;
   email: string;
   token: string;
   refreshToken: string;
+  expires_at: Date;
 }

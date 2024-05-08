@@ -1,10 +1,21 @@
-const isAuthenticated = () => {
+const isAuthenticated = async () => {
   const token = useCookie("token");
-  return !!token.value;
+  if (!token) {
+    return false;
+  }
+  try {
+    const resp = await $fetch("/api/auth/validate");
+    return resp;
+  } catch (e) {
+    token.value = null;
+    console.error(e);
+    return false;
+  }
 };
 
-export default defineNuxtRouteMiddleware((to, from) => {
-  if (!isAuthenticated()) {
+export default defineNuxtRouteMiddleware(async (to, from) => {
+  const authenticated = await isAuthenticated();
+  if (!authenticated) {
     if (to.path === "/") {
       return;
     }

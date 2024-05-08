@@ -1,7 +1,12 @@
 <template>
   <Card class="max-h-60">
     <CardHeader>
-      <CardTitle> Account status </CardTitle>
+      <CardTitle class="flex justify-between">
+        Account status
+        <Button variant="outline" size="xs" @click="refresh">
+          <RefreshCcw :size="12" />
+        </Button>
+      </CardTitle>
       <CardDescription> State of money on joint account</CardDescription>
     </CardHeader>
     <CardContent v-if="status === 'pending'">
@@ -11,7 +16,7 @@
     <CardContent v-else-if="data">
       <div class="flex justify-between">
         <span> Current balance: </span>
-        <span> {{ data.amount.toFixed(2) }} €</span>
+        <span> {{ data.amount }} €</span>
       </div>
     </CardContent>
     <CardContent v-else>
@@ -21,7 +26,8 @@
 </template>
 
 <script lang="ts" setup>
-const { data, status, error } = useFetch("/api/account");
+import { RefreshCcw } from "lucide-vue-next";
+const { data, status, error, refresh } = useFetch("/api/account");
 </script>
 
 <style></style>

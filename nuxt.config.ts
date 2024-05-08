@@ -7,7 +7,6 @@ const createPgString = () => {
     username: process.env.PG_USERNAME ?? "postgres",
     password: process.env.PG_PASSWORD ?? "postgres",
   };
-  console.log("pgConfig", pgConfig);
   return `postgresql://${pgConfig.username}:${pgConfig.password}@${pgConfig.url}/${pgConfig.database}`;
 };
 

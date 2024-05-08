@@ -37,16 +37,11 @@ export function authService() {
       email: user.email,
       token,
       refreshToken: refresh_token,
+      expires_at,
     };
   };
 
-  const getUser = async (token?: string): Promise<User> => {
-    if (!token) {
-      throw createError({
-        statusCode: 401,
-        statusMessage: "Unauthorized",
-      });
-    }
+  const validateToken = async (token: string): Promise<boolean> => {
     const sessions = await sql<
       DbUserSession[]
     >`SELECT * FROM sessions WHERE token = ${token}`;
@@ -56,28 +51,17 @@ export function authService() {
         statusMessage: "Unauthorized",
       });
     }
-    const session = sessions[0];
-
-    const users = await sql<
-      DbUser[]
-    >`SELECT * FROM users  WHERE id = ${session.user_id}`;
-    if (users.length > 1 || users.length === 0) {
+    if (sessions[0].expires_at < new Date()) {
       throw createError({
         statusCode: 401,
         statusMessage: "Unauthorized",
       });
     }
-    return {
-      id: users[0].id,
-      username: users[0].name,
-      email: users[0].email,
-      token: session.token,
-      refreshToken: session.refresh_token,
-    };
+    return true;
   };
 
   return {
     login,
-    getUser,
+    validateToken,
   };
 }

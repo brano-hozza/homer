@@ -44,6 +44,7 @@
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import { FetchError } from "ofetch";
+import type { User } from "@/types";
 import * as z from "zod";
 
 const formSchema = toTypedSchema(
@@ -69,7 +70,7 @@ const refreshToken = useCookie("refresh_token");
 
 const onSubmit = form.handleSubmit(async (values) => {
   try {
-    const user = await $fetch("/api/auth/login", {
+    const user = await $fetch<User>("/api/auth/login", {
       method: "POST",
       body: JSON.stringify(values),
     });
