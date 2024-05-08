@@ -1,6 +1,7 @@
 <template>
-  <div class="w-full bg-secondary p-2">
+  <div class="w-full bg-secondary p-2 flex justify-between">
     <h1 class="text-xl text-primary">Homer</h1>
+    <span v-if="username">Welcome, {{ username }}!</span>
   </div>
   <Breadcrumb v-if="firstItem" class="p-2 border-b">
     <BreadcrumbList>
@@ -86,7 +87,7 @@ const route = useRoute();
 const isDesktop = useMediaQuery("(min-width: 768px)");
 const isOpen = ref(false);
 
-const PAGE_NAMES = {
+const PAGE_NAMES: Record<string, string> = {
   "": "App",
   home: "Home",
 };
@@ -105,6 +106,11 @@ const remainingItems = computed(() =>
   items.value.slice(-itemsToDisplay + 1, -1)
 );
 const lastItem = computed(() => items.value[items.value.length - 1]);
+
+// User
+const authStore = useAuthStore();
+
+const username = computed(() => authStore.user?.username);
 </script>
 
 <style></style>
