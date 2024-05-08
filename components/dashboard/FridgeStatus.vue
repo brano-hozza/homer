@@ -8,10 +8,13 @@
       <ul>
         <li>Milk: 1L</li>
         <li>Eggs: 6</li>
-        <li>Bread: 1</li>
-        <li>Cheese: 200g</li>
       </ul>
     </CardContent>
+    <CardFooter>
+      <Button variant="outline" class="w-full" @click="$router.push('/fridge')">
+        Into the fridge
+      </Button>
+    </CardFooter>
   </Card>
 </template>
 

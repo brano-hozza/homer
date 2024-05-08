@@ -51,7 +51,9 @@ export function authService() {
         statusMessage: "Unauthorized",
       });
     }
-    if (sessions[0].expires_at < new Date()) {
+    const expiredAt = new Date(sessions[0].expires_at);
+    const today = new Date();
+    if (expiredAt < today) {
       throw createError({
         statusCode: 401,
         statusMessage: "Unauthorized",
