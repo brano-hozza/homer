@@ -1,5 +1,5 @@
-import type { DbUser, User } from "~/types";
-import sql from "../utils/db";
+import { authRepository } from "../repositories/auth-repository";
+import { RepositoryError } from "../errors/repository";
 
 export default defineEventHandler(async (event) => {
   if (event.path.startsWith("/api")) {
@@ -14,31 +14,21 @@ export default defineEventHandler(async (event) => {
       });
     }
 
-    type MergedUser = DbUser & {
-      token: string;
-      refresh_token: string;
-      expires_at: string;
-    };
-
-    const users = await sql<MergedUser[]>`
-    SELECT us.*, se.token, se.refresh_token, se.expires_at FROM users us JOIN sessions se ON us.id = se.user_id WHERE se.token = ${token}
-  `;
-
-    if (users.length === 0) {
+    const repo = authRepository();
+    try {
+      const user = await repo.getUser(token);
+      event.context.user = user;
+    } catch (e) {
+      if (e instanceof RepositoryError) {
+        throw createError({
+          statusCode: 401,
+          message: "Unauthorized",
+        });
+      }
       throw createError({
-        statusCode: 401,
-        message: "Unauthorized",
+        statusCode: 500,
+        message: "Internal Server Error",
       });
     }
-    const db_user = users[0];
-
-    const user: User = {
-      ...db_user,
-      username: db_user.name,
-      refreshToken: db_user.refresh_token,
-      expires_at: new Date(db_user.expires_at),
-    };
-
-    event.context.user = user;
   }
 });

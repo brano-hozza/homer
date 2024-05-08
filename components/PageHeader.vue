@@ -113,7 +113,7 @@ const lastItem = computed(() => items.value[items.value.length - 1]);
 // User
 const authStore = useAuthStore();
 
-const username = computed(() => authStore.user?.username);
+const username = computed(() => authStore.user?.name);
 
 const token = useCookie("token");
 const router = useRouter();

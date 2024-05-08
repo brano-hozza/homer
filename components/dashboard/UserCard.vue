@@ -7,7 +7,7 @@
     <CardContent v-if="user">
       <div class="flex justify-between">
         <span> Username: </span>
-        <span> {{ user.username }} </span>
+        <span> {{ user.name }} </span>
       </div>
       <div class="flex justify-between">
         <span> Email: </span>

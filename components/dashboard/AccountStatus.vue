@@ -18,6 +18,15 @@
         <span> Current balance: </span>
         <span> {{ data.amount }} €</span>
       </div>
+      <div v-if="data.accounts.length > 0" class="flex justify-between">
+        <span> Accounts: </span>
+        <ul>
+          <li v-for="account in data.accounts" :key="account.id">
+            {{ account.name }}: {{ account.amount }} €
+          </li>
+        </ul>
+      </div>
+      <span v-else> No accounts found </span>
     </CardContent>
     <CardContent v-else>
       <span class="text-red-500">{{ error }}</span>
